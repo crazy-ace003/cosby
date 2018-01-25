@@ -27,7 +27,7 @@ post '/callback' do
         if say_message == "lc beer me"
           message = {
             type: 'text',
-            text: "reply: #{say_message}"
+            text: "beer me"
           }
           response = client.reply_message(event['replyToken'], message)
         when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
