@@ -24,12 +24,10 @@ post '/callback' do
       case event.type
       when Line::Bot::Event::MessageType::Text
         say_message = event.message['text']
-        if say_message == "lc beer me"
           message = {
             type: 'text',
             text: "beer me"
           }
-        end
           response = client.reply_message(event['replyToken'], message)
         when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
           response = client.get_message_content(event.message['id'])
