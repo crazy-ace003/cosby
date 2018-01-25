@@ -1,0 +1,18 @@
+{
+  "name": "LINE Chatbot Sample",
+  "description": "Ruby app using LINE Messaging API",
+  "repository": "https://github.com/tamanobi/line-chatbot-rb-sample",
+  "env": {
+      "LINE_CHANNEL_SECRET" : {
+          "description": "07aa7fd533678ebe5b47f905ac8040a3"
+      },
+      "LINE_CHANNEL_TOKEN" : {
+          "description": "rUeuSD+nVbCeQAlNOHCxwwLpY4a4KSmR77sF1AWIiz1iqvHAzqWvW+NIApiVQp6uVld1mjyqLuAXWf/6cvMzY3RvLReqQhiqYnU5DjzSWGg/mkL1UvCWXQPrvOYvL7fM6EgO0TaDdQ+esQG+w0mJJAdB04t89/1O/w1cDnyilFU="
+      },
+      "LINE_TEST_USER_ID" : {
+          "description": "u30f5fc58f5e1208a5f795611a7c3d52e"
+      }
+  },
+  "keywords": ["ruby", "sinatra"],
+  "image": "heroku/ruby"
+}
