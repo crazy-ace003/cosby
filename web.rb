@@ -24,11 +24,13 @@ post '/callback' do
       case event.type
       when Line::Bot::Event::MessageType::Text
         say_message = event.message['text']
-        message = {
-          type: 'text',
-          text: "beer me"
-        }
-        response = client.reply_message(event['replyToken'], message)
+        if say_message == "lc beer me"
+          message = {
+            type: 'text',
+            text: "beer me"
+          }
+          response = client.reply_message(event['replyToken'], message)
+        end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
