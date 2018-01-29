@@ -23,12 +23,20 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        #say_message = event.message['text']
-          message = {
-            type: 'text',
-            text: "beer me"
-          }
-          response = client.reply_message(event['replyToken'], message)
+        say_message = event.message['text']
+        if say_message == "lop"
+            message = {
+              type: 'text',
+              text: "beer me"
+            }
+            response = client.reply_message(event['replyToken'], message)
+        else
+           message = {
+              type: 'text',
+              text: "opse"
+            }
+            response = client.reply_message(event['replyToken'], message)
+        end
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
