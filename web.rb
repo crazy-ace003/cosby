@@ -23,8 +23,7 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        say_message = event.message['text']
-        if say_message == "lc beer me"
+        #say_message = event.message['text']
           message = {
             type: 'text',
             text: "beer me"
