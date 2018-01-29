@@ -27,7 +27,7 @@ post '/callback' do
         if say_message == "lop"
             message = {
               type: 'text',
-              text: event.message['text']
+              text: 'vag'
             }
             response = client.reply_message(event['replyToken'], message)
         else
