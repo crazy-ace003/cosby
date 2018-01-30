@@ -26,6 +26,7 @@ post '/callback' do
         msg = event.message['text']
         if msg == "!eth"
           price_eth = Coins.priceEthereum()
+          puts "#{price_eth}"
           message = {
             type: 'text',
             text: price_eth
