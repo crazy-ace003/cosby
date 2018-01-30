@@ -1,50 +1,66 @@
+require_relative 'coins'
+require 'sinatra'
+require 'line/bot'
 
-require 'uri'
-require'json'
-module Coins
-  class << self
-    public
-    def priceMonero()
-        uri = URI.parse("https://api.coinmarketcap.com/v1/ticker/monero/")
-        response = Net::HTTP.get_response(uri)
-        data = JSON.parse(response.body)
-        price_usd = data[0]['price_usd'].to_s
-        price_btc = data[0]['price_btc'].to_s
-        precent_change1h = data[0]['percent_change_1h']
-        precent_change24h = data[0]['percent_change_24h']
-        #monero = "***          MONERO          ***```\n-Price USD: $ #{price_usd}\n" + "-Price BTC: ฿ #{price_btc}\n" + "-Price Change 1 hour: #{precent_change1h}\n" + "-Precent Chnage 24 hours: #{precent_change24h}```"
-        monero = "MONERO\n-Price USD: $ #{price_usd}\n" + "-Price BTC: ฿ #{price_btc}\n" + "-Price Change 1 hour: #{precent_change1h}\n" + "-Precent Chnage 24 hours: #{precent_change24h}"
-         monero
-    end
-    def priceBitcoin()
-        uri = URI.parse("https://api.coinmarketcap.com/v1/ticker/bitcoin/")
-        response = Net::HTTP.get_response(uri)
-        data = JSON.parse(response.body)
-        price_usd = data[0]['price_usd'].to_s
-        price_btc = data[0]['price_btc'].to_s
-        precent_change1h = data[0]['percent_change_1h']
-        precent_change24h = data[0]['percent_change_24h']
-        monero = "BITCOIN\n-Price USD: $ #{price_usd}\n" + "-Price BTC: ฿ #{price_btc}\n" + "-Price Change 1 hour: #{precent_change1h}\n" + "-Precent Chnage 24 hours: #{precent_change24h}```"
-    end
-    def priceEthereum()
-        uri = URI.parse("https://api.coinmarketcap.com/v1/ticker/ethereum/")
-        response = Net::HTTP.get_response(uri)
-        data = JSON.parse(response.body)
-        price_usd = data[0]['price_usd'].to_s
-        price_btc = data[0]['price_btc'].to_s
-        precent_change1h = data[0]['percent_change_1h']
-        precent_change24h = data[0]['percent_change_24h']
-        monero = "ETHEREUM\n-Price USD: $ #{price_usd}\n" + "-Price BTC: ฿ #{price_btc}\n" + "-Price Change 1 hour: #{precent_change1h}\n" + "-Precent Chnage 24 hours: #{precent_change24h}```"
-    end
-    def priceStellar()
-        uri = URI.parse("https://api.coinmarketcap.com/v1/ticker/stellar/")
-        response = Net::HTTP.get_response(uri)
-        data = JSON.parse(response.body)
-        price_usd = data[0]['price_usd'].to_s
-        price_btc = data[0]['price_btc'].to_s
-        precent_change1h = data[0]['percent_change_1h']
-        precent_change24h = data[0]['percent_change_24h']
-        monero = "***STELLAR***```\n-Price USD: $ #{price_usd}\n" + "-Price BTC: ฿ #{price_btc}\n" + "-Price Change 1 hour: #{precent_change1h}\n" + "-Precent Chnage 24 hours: #{precent_change24h}```"
-    end
+def client
+  @client ||= Line::Bot::Client.new { |config|
+    config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+    config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+  }
+end
+
+post '/callback' do
+  body = request.body.read
+
+  signature = request.env['HTTP_X_LINE_SIGNATURE']
+  unless client.validate_signature(body, signature)
+    error 400 do 'Bad Request' end
   end
+
+  events = client.parse_events_from(body)
+  events.each { |event|
+    case event
+    when Line::Bot::Event::Message
+      case event.type
+      when Line::Bot::Event::MessageType::Text
+        msg = event.message['text']
+        if msg == "lc eth"
+          price_eth = Coins.priceEthereum()
+          message = {
+            type: 'text',
+            text: price_eth
+          }
+          client.reply_message(event['replyToken'], message)
+        elsif msg == "lc xmr"
+          price_xmr = Coins.priceMonero()
+          message = {
+            type: 'text',
+            text: price_xmr
+          }
+          client.reply_message(event['replyToken'], message)
+        elsif msg == "lc xml"
+          price_xml = priceStellar()
+          message = {
+            type: 'text',
+            text: price_xml
+          }
+          client.reply_message(event['replyToken'], message)
+        elsif msg == "lc btc"
+          price_btc = Coins.priceBitcoin()
+          message = {
+            type: 'text',
+            text: price_btc
+          }
+          client.reply_message(event['replyToken'], message)
+        end
+
+      when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
+        response = client.get_message_content(event.message['id'])
+        tf = Tempfile.open("content")
+        tf.write(response.body)
+      end
+    end
+  }
+
+  "OK"
 end
