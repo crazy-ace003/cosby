@@ -29,16 +29,17 @@ post '/callback' do
           message = {
             type: 'text',
             text: price_eth
-            }
+          }
           client.reply_message(event['replyToken'], message)
         elsif msg == "!xmr"
           price_xmr = Coins.priceMonero()
           message = {
             type: 'text',
-            text: price_eth
-            }
+            text: price_xmr
+          }
           client.reply_message(event['replyToken'], message)
         end
+
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
