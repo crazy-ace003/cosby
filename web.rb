@@ -42,7 +42,7 @@ post '/callback' do
           price_xlm = Coins.priceStellar()
           message = {
             type: 'text',
-            text: price_xml
+            text: price_xlm
           }
           client.reply_message(event['replyToken'], message)
         elsif msg == "lc btc"
