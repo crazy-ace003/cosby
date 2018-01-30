@@ -33,7 +33,7 @@ post '/callback' do
             }
             response = client.reply_message(event['replyToken'], message)
         elsif say_message == "!xmr"
-           pricrXmr - Coins.priceMonero()
+           pricrXmr = Coins.priceMonero()
            message = {
               type: 'text',
               text: priceXmr
