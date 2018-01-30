@@ -25,10 +25,11 @@ post '/callback' do
       case event.type
       when Line::Bot::Event::MessageType::Text
         say_message = event.message['text']
-        if say_message == "lop"
+        if say_message == "!eth"
+            priceEth = Coins.priceEthereum()
             message = {
               type: 'text',
-              text: 'vag'
+              text: "#{priceEth}"
             }
             response = client.reply_message(event['replyToken'], message)
         end
