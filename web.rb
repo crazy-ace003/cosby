@@ -29,7 +29,7 @@ post '/callback' do
             priceEth = Coins.priceEthereum()
             message = {
               type: 'text',
-              text: "#{priceEth}"
+              text: priceEth
             }
             response = client.reply_message(event['replyToken'], message)
         end
