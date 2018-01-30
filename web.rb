@@ -45,4 +45,3 @@ post '/callback' do
 
   "OK"
 end
-end
