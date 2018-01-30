@@ -1,4 +1,4 @@
-require'colorize'
+
 require 'uri'
 require'json'
 module Coins
