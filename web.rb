@@ -38,13 +38,6 @@ post '/callback' do
             text: price_xmr
           }
           client.reply_message(event['replyToken'], message)
-        elsif msg == "xml"
-          price_xml = priceStellar()
-          message = {
-            type: 'text',
-            text: price_xml
-          }
-          client.reply_message(event['replyToken'], message)
         end
 
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
