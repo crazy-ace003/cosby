@@ -32,7 +32,7 @@ post '/callback' do
               text: priceEth
             }
             response = client.reply_message(event['replyToken'], message)
-        else ay_message == "!xmr"
+        else say_message == "!xmr"
            pricrXmr = Coins.priceMonero()
            message = {
               type: 'text',
