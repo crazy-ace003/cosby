@@ -13,7 +13,7 @@ module Coins
         precent_change1h = data[0]['percent_change_1h']
         precent_change24h = data[0]['percent_change_24h']
         #monero = "***          MONERO          ***```\n-Price USD: $ #{price_usd}\n" + "-Price BTC: ฿ #{price_btc}\n" + "-Price Change 1 hour: #{precent_change1h}\n" + "-Precent Chnage 24 hours: #{precent_change24h}```"
-        monero = "**        MONERO          **\n-Price USD: $ #{price_usd}\n" + "-Price BTC: ฿ #{price_btc}\n" + "-Price Change 1 hour: #{precent_change1h}\n" + "-Precent Chnage 24 hours: #{precent_change24h}"
+        monero = "MONERO\n-Price USD: $ #{price_usd}\n" + "-Price BTC: ฿ #{price_btc}\n" + "-Price Change 1 hour: #{precent_change1h}\n" + "-Precent Chnage 24 hours: #{precent_change24h}"
          monero
     end
     def priceBitcoin()
@@ -24,7 +24,7 @@ module Coins
         price_btc = data[0]['price_btc'].to_s
         precent_change1h = data[0]['percent_change_1h']
         precent_change24h = data[0]['percent_change_24h']
-        monero = "**BITCOIN**```\n-Price USD: $ #{price_usd}\n" + "-Price BTC: ฿ #{price_btc}\n" + "-Price Change 1 hour: #{precent_change1h}\n" + "-Precent Chnage 24 hours: #{precent_change24h}```"
+        monero = "BITCOIN\n-Price USD: $ #{price_usd}\n" + "-Price BTC: ฿ #{price_btc}\n" + "-Price Change 1 hour: #{precent_change1h}\n" + "-Precent Chnage 24 hours: #{precent_change24h}```"
     end
     def priceEthereum()
         uri = URI.parse("https://api.coinmarketcap.com/v1/ticker/ethereum/")
@@ -34,7 +34,7 @@ module Coins
         price_btc = data[0]['price_btc'].to_s
         precent_change1h = data[0]['percent_change_1h']
         precent_change24h = data[0]['percent_change_24h']
-        monero = "***ETHEREUM***```\n-Price USD: $ #{price_usd}\n" + "-Price BTC: ฿ #{price_btc}\n" + "-Price Change 1 hour: #{precent_change1h}\n" + "-Precent Chnage 24 hours: #{precent_change24h}```"
+        monero = "ETHEREUM\n-Price USD: $ #{price_usd}\n" + "-Price BTC: ฿ #{price_btc}\n" + "-Price Change 1 hour: #{precent_change1h}\n" + "-Precent Chnage 24 hours: #{precent_change24h}```"
     end
     def priceStellar()
         uri = URI.parse("https://api.coinmarketcap.com/v1/ticker/stellar/")
