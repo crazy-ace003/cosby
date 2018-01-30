@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/logger'
 require 'line/bot'
+require_relative 'coins'
 
 def client
   @client ||= Line::Bot::Client.new { |config|
