@@ -24,21 +24,21 @@ post '/callback' do
       case event.type
       when Line::Bot::Event::MessageType::Text
         msg = event.message['text']
-        if msg == "lc eth"
+        if msg == "!eth"
           price_eth = Coins.priceEthereum()
           message = {
             type: 'text',
             text: price_eth
           }
           client.reply_message(event['replyToken'], message)
-        elsif msg == "lc xmr"
+        elsif msg == "!xmr"
           price_xmr = Coins.priceMonero()
           message = {
             type: 'text',
             text: price_xmr
           }
           client.reply_message(event['replyToken'], message)
-        elsif msg == "lc xml"
+        elsif msg == "xml"
           price_xml = priceStellar()
           message = {
             type: 'text',
