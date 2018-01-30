@@ -32,6 +32,13 @@ post '/callback' do
               text: priceEth
             }
             response = client.reply_message(event['replyToken'], message)
+        elsif say_message == "!xmr"
+           pricrXmr - Coins.priceMonero()
+           message = {
+              type: 'text',
+              text: priceXmr
+            }
+            response = client.reply_message(event['replyToken'], message)
         end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
