@@ -1,5 +1,5 @@
+require_relative 'coins'
 require 'sinatra'
-require 'sinatra/logger'
 require 'line/bot'
 
 def client
@@ -18,24 +18,34 @@ post '/callback' do
   end
 
   events = client.parse_events_from(body)
-  events.each do |event|
+  events.each { |event|
     case event
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        say_message = event.message['text']
-        message = {
-          type: 'text',
-          text: "beer me"
-        }
-        response = client.reply_message(event['replyToken'], message)
+        msg = event.message['text']
+        if msg == "!eth"
+          price_eth = Coins.priceEthereum()
+          message = {
+            type: 'text',
+            text: price_eth
+          }
+          client.reply_message(event['replyToken'], message)
+        elsif msg == "!xmr"
+          price_xmr = Coins.priceMonero()
+          message = {
+            type: 'text',
+            text: price_eth
+          }
+          client.reply_message(event['replyToken'], message)
+
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
         tf.write(response.body)
       end
     end
-  end
+  }
 
   "OK"
 end
