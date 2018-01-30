@@ -31,15 +31,8 @@ post '/callback' do
               text: eth
             }
             client.reply_message(event['replyToken'], message)
-          elsif msg == "!xmr"
-            xmr = Coins.priceMonero()
-            message = {
-              type: 'text',
-              text: xmr
-            }
-            client.reply_message(event['replyToken'], message)
-          end
-
+            reply_message(event['replyToken'], message)
+        end
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
