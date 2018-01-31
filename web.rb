@@ -36,10 +36,10 @@ post '/callback' do
           message = {
             type: 'text',
             text: xmr_price
-  end
+            }
           client.reply_message(event['replyToken'], message)
         end
     end
-  }
+  end
   "OK"
 end
