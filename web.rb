@@ -19,13 +19,11 @@ post '/callback' do
 
   events = client.parse_events_from(body)
 
-  events.each  |event|
+  events.each { |event|
     case event
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        f = File.open("readme.txt", "a")
-        f << event.message['text']
         eth_price = Coins.priceEthereum()
         if event.message['text'] == "!eth"
           message = {
@@ -33,15 +31,9 @@ post '/callback' do
             text: eth_price
           }
           client.reply_message(event['replyToken'], message)
-        elsif event.message['text'] == "!xmr"
-          xmr_price = Coins.priceMonero()
-          message = {
-            type: 'text',
-            text: xmr_price
-            }
-          client.reply_message(event['replyToken'], message)
         end
+      end
     end
-  end
+  }
   "OK"
 end
