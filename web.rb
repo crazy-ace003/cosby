@@ -38,6 +38,7 @@ post '/callback' do
             text: xmr_price
           }
           client.reply_message(event['replyToken'], message)
+        end
       end
     end
 }
