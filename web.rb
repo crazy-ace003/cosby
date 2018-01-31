@@ -25,6 +25,7 @@ post '/callback' do
       case event.type
       when Line::Bot::Event::MessageType::Text
         if event.message['text'] == "!eth"
+          puts event.message['text']
           eth_price = Coins.priceEthereum()
           message = {
             type: 'text',
