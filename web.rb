@@ -19,7 +19,7 @@ post '/callback' do
 
   events = client.parse_events_from(body)
 
-  events.each { |event|
+  events.each  |event|
     case event
     when Line::Bot::Event::Message
       case event.type
@@ -36,7 +36,7 @@ post '/callback' do
           message = {
             type: 'text',
             text: xmr_price
-          }
+  end
           client.reply_message(event['replyToken'], message)
         end
     end
