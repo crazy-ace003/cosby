@@ -24,6 +24,8 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
+        f = File.open("readme.txt", "a")
+        f << event.message['text']
         eth_price = Coins.priceEthereum()
         if event.message['text'] == "!eth"
           message = {
